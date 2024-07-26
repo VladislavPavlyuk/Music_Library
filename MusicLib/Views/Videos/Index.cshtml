@@ -1,19 +1,21 @@
-﻿@model IEnumerable<MusicLib.BLL.DTO.GenreDTO> 
+﻿@model IEnumerable<MusicLib.BLL.DTO.VideoDTO> 
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>List of Genres</h2>
+<h2>List of Videos</h2>
 <p>
-    <a asp-action="Create">Add a new Genre</a>
+    <a asp-action="Create">Add a new Video</a>
 </p>
 <table class="table-condensed" style="width:100%">
     <tr>
         <th>
-            @Html.Label("Genre")
+            @Html.Label("FileName")
         </th>
-
+        <th>
+            @Html.Label("Path")
+        </th>
         <th></th>
     </tr>
 
@@ -21,7 +23,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Path)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

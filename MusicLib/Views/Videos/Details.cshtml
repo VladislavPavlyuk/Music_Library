@@ -1,4 +1,4 @@
-﻿@model MusicLib.BLL.DTO.GenreDTO
+﻿@model MusicLib.BLL.DTO.VideoDTO
 
 @{
     ViewBag.Title = "Details";
@@ -10,10 +10,16 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.Label("Genre:")
+            @Html.Label("FileName:")
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.FileName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.Label("Path:")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Path)
         </dd>
     </dl>
 </div>

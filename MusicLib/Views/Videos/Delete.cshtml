@@ -1,32 +1,32 @@
-﻿@model MusicLib.BLL.DTO.ArtistDTO
+﻿@model MusicLib.BLL.DTO.VideoDTO
 
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Delete Video</h2>
 
-<h3>Do you really wanto to delete this Artist?</h3>
+<h3>Do you really want to delete this Video?</h3>
 <div>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.Label("Name:")
+            @Html.Label("FileName:")
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.FileName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.Label("Birthdate:")
+            @Html.Label("Path:")
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Birthdate)
+            @Html.DisplayFor(model => model.Path)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
         <a asp-action="Index">Back</a>
     </form>
 </div>

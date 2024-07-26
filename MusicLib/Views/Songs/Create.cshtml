@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Add new Song</h2>
+<h2>Add a new Song</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,10 +20,12 @@
                 <input asp-for="Release" class="form-control" />
                 <span asp-validation-for="Release" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 @Html.Label("Genre:")
                 <select asp-for="GenreId" class="form-control" asp-items="ViewBag.ListGenres as SelectList"></select>
             </div>
+
             <div class="form-group">
                 @Html.Label("Artist:")
                 <select asp-for="ArtistId" class="form-control" asp-items="ViewBag.ListArtists as SelectList"></select>
@@ -33,14 +35,14 @@
                 <select asp-for="VideoId" class="form-control" asp-items="ViewBag.ListVideos as SelectList"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Добавить" class="btn btn-primary" />
+                <input type="submit" value="Add" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">К списку игроков</a>
+    <a asp-action="Index">Back</a>
 </div>
 @section Scripts {
     @{

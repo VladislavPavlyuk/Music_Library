@@ -21,7 +21,8 @@ namespace MusicLib.BLL.Services
             var artist = new Artist
             {
                 Id = artistDto.Id,
-                Name = artistDto.Name
+                Name = artistDto.Name,
+                Birthdate = artistDto.Birthdate
             };
             await Database.Artists.Create(artist);
 
@@ -34,6 +35,7 @@ namespace MusicLib.BLL.Services
             {
                 Id = artistDto.Id,
                 Name = artistDto.Name,
+                Birthdate = artistDto.Birthdate
             };
             Database.Artists.Update(artist);
 
@@ -57,7 +59,8 @@ namespace MusicLib.BLL.Services
             return new ArtistDTO
             {
                 Id = artist.Id,
-                Name = artist.Name
+                Name = artist.Name,
+                Birthdate = artist.Birthdate
             };
         }
 
