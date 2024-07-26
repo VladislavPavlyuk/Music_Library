@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddMusicLibContext(connection);
 builder.Services.AddUnitOfWorkService();
+builder.Services.AddTransient<IVideoService, VideoService>();
+builder.Services.AddTransient<IArtistService, ArtistService>();
 builder.Services.AddTransient<IGenreService, GenreService>();
 builder.Services.AddTransient<ISongService, SongService>();
 
