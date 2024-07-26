@@ -14,6 +14,6 @@ namespace MusicLib.DAL.Entities
 
         public string? Birthdate { get; set; }
 
-        public ICollection<Player>? Players { get; set; }
+        public ICollection<Song>? Songs { get; set; }
     }
 }

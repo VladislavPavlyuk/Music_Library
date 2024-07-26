@@ -11,7 +11,7 @@ string? connection = builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddMusicLibContext(connection);
 builder.Services.AddUnitOfWorkService();
 builder.Services.AddTransient<IGenreService, GenreService>();
-builder.Services.AddTransient<IPlayerService, PlayerService>();
+builder.Services.AddTransient<ISongService, SongService>();
 
 // Добавляем сервисы MVC
 builder.Services.AddControllersWithViews();
@@ -22,6 +22,6 @@ app.UseStaticFiles(); // обрабатывает запросы к файлам в папке wwwroot
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Genres}/{action=Index}/{id?}");
+    pattern: "{controller=Songs}/{action=Index}/{id?}");
 
 app.Run();

@@ -1,10 +1,10 @@
-﻿@model MusicLib.BLL.DTO.PlayerDTO
+﻿@model MusicLib.BLL.DTO.SongDTO
 
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>Изменение игрока</h2>
+<h2>Edit Song</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -12,24 +12,29 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                @Html.Label("Игрок:")
+                @Html.Label("Song:")
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.Label("Возраст:")
-                <input asp-for="Age" class="form-control" />
-                <span asp-validation-for="Age" class="text-danger"></span>
+                @Html.Label("Release:")
+                <input asp-for="Release" class="form-control" />
+                <span asp-validation-for="Release" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.Label("Позиция на поле:")
-                <input asp-for="Position" class="form-control" />
-                <span asp-validation-for="Position" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                @Html.Label("Клуб:")
+                @Html.Label("Genre:")
                 <select asp-for="GenreId" class="form-control" asp-items="ViewBag.ListGenres as SelectList"></select>
                 <span asp-validation-for="GenreId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.Label("Artist:")
+                <select asp-for="ArtistId" class="form-control" asp-items="ViewBag.ListArtists as SelectList"></select>
+                <span asp-validation-for="ArtistId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.Label("Video:")
+                <select asp-for="VideoId" class="form-control" asp-items="ViewBag.ListVideos as SelectList"></select>
+                <span asp-validation-for="VideoId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Изменить" class="btn btn-primary" />
@@ -39,7 +44,7 @@
 </div>
 
 <div>
-    @Html.ActionLink("К списку игроков", "Index")
+    @Html.ActionLink("Back", "Index")
 </div>
 @section Scripts {
     @{

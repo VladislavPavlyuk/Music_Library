@@ -6,23 +6,23 @@ using MusicLib.BLL.Infrastructure;
 
 namespace MusicLib.Controllers
 {
-    public class PlayersController : Controller
+    public class SongsController : Controller
     {
-        private readonly IPlayerService playerService;
+        private readonly ISongService songService;
         private readonly IGenreService genreService;
-        public PlayersController(IPlayerService playerserv, IGenreService genreserv)
+        public SongsController(ISongService songserv, IGenreService genreserv)
         {
-            playerService = playerserv;
+            songService = songserv;
             genreService = genreserv;
         }
 
-        // GET: Players
+        // GET: Songs
         public async Task<IActionResult> Index()
         {
-            return View(await playerService.GetPlayers());
+            return View(await songService.GetSongs());
         }
 
-        // GET: Players/Details/5
+        // GET: Songs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             try
@@ -31,8 +31,8 @@ namespace MusicLib.Controllers
                 {
                     return NotFound();
                 }
-                PlayerDTO player = await playerService.GetPlayer((int)id);
-                return View(player);
+                SongDTO song = await songService.GetSong((int)id);
+                return View(song);
             }
             catch (ValidationException ex)
             {
@@ -40,28 +40,28 @@ namespace MusicLib.Controllers
             }
         }
 
-        // GET: Players/Create
+        // GET: Songs/Create
         public async Task<IActionResult> Create()
         {
             ViewBag.Listgenres = new SelectList(await genreService.GetGenres(), "Id", "Name");
             return View();
         }
 
-        // POST: Players/Create
+        // POST: Songs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PlayerDTO player)
+        public async Task<IActionResult> Create(SongDTO song)
         {
             if (ModelState.IsValid)
             {
-                await playerService.CreatePlayer(player);
-                return View("~/Views/Players/Index.cshtml", await playerService.GetPlayers());
+                await songService.CreateSong(song);
+                return View("~/Views/Songs/Index.cshtml", await songService.GetSongs());
             }
-            ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", player.GenreId);
-            return View(player);
+            ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", song.GenreId);
+            return View(song);
         }
 
-        // GET: Players/Edit/5
+        // GET: Songs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             try
@@ -70,9 +70,9 @@ namespace MusicLib.Controllers
                 {
                     return NotFound();
                 }
-                PlayerDTO player = await playerService.GetPlayer((int)id);
-                ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", player.GenreId);
-                return View(player);
+                SongDTO song = await songService.GetSong((int)id);
+                ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", song.GenreId);
+                return View(song);
             }
             catch (ValidationException ex)
             {
@@ -81,22 +81,22 @@ namespace MusicLib.Controllers
         }
 
 
-        // POST: Players/Edit/5
+        // POST: Songs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(PlayerDTO player)
+        public async Task<IActionResult> Edit(SongDTO song)
         {
             if (ModelState.IsValid)
             {
-                await playerService.UpdatePlayer(player);
-                return View("~/Views/Players/Index.cshtml", await playerService.GetPlayers());
+                await songService.UpdateSong(song);
+                return View("~/Views/Songs/Index.cshtml", await songService.GetSongs());
             }
-            ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", player.GenreId);
-            return View(player);
+            ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", song.GenreId);
+            return View(song);
         }
 
 
-        // GET: Players/Delete/5
+        // GET: Songs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             try
@@ -105,8 +105,8 @@ namespace MusicLib.Controllers
                 {
                     return NotFound();
                 }
-                PlayerDTO player = await playerService.GetPlayer((int)id);
-                return View(player);
+                SongDTO song = await songService.GetSong((int)id);
+                return View(song);
             }
             catch (ValidationException ex)
             {
@@ -114,13 +114,13 @@ namespace MusicLib.Controllers
             }
         }
 
-        // POST: Players/Delete/5
+        // POST: Songs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await playerService.DeletePlayer(id);
-            return View("~/Views/Players/Index.cshtml", await playerService.GetPlayers());
+            await songService.DeleteSong(id);
+            return View("~/Views/Songs/Index.cshtml", await songService.GetSongs());
         }
 
     }

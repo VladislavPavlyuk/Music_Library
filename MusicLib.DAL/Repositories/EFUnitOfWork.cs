@@ -12,7 +12,7 @@ namespace MusicLib.DAL.Repositories
     public class EFUnitOfWork : IUnitOfWork
     {
         private MusicLibContext db;
-        private PlayerRepository playerRepository;
+        private SongRepository songRepository;
         private GenreRepository genreRepository;
         private ArtistRepository artistRepository;
         private VideoRepository videoRepository;
@@ -49,13 +49,13 @@ namespace MusicLib.DAL.Repositories
             }
         }
 
-        public IRepository<Player> Players
+        public IRepository<Song> Songs
         {
             get
             {
-                if (playerRepository == null)
-                    playerRepository = new PlayerRepository(db);
-                return playerRepository;
+                if (songRepository == null)
+                    songRepository = new SongRepository(db);
+                return songRepository;
             }
         }
 

@@ -12,7 +12,5 @@ namespace MusicLib.BLL.DTO
         [Required(ErrorMessage = "Поле должно быть установлено.")]
         public string? Name { get; set; }
 
-        [Required(ErrorMessage = "Поле должно быть установлено.")]
-        public string? Coach { get; set; }
     }
 }

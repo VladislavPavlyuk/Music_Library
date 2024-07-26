@@ -8,7 +8,7 @@ namespace MusicLib.DAL.EF
     public class MusicLibContext : DbContext
     { 
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<Player> Players { get; set; }
+        public DbSet<Song> Songs { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Video> Videos { get; set; }
         public MusicLibContext(DbContextOptions<MusicLibContext> options)

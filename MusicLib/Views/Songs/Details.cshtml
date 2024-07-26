@@ -1,0 +1,47 @@
+﻿@model MusicLib.BLL.DTO.SongDTO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.Label("Song:")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.Label("Release:")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Release)
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.Label("Genre:")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.Label("Artist:")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Artist)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.Label("Video:")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Video)
+        </dd>
+    </dl>
+</div>
+<p>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back</a>
+</p>

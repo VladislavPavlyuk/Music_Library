@@ -3,9 +3,9 @@
 namespace MusicLib.BLL.DTO
 {
     // Data Transfer Object - специальная модель для передачи данных
-    // Класс PlayerDTO должен содержать только те данные, которые нужно передать 
+    // Класс SongDTO должен содержать только те данные, которые нужно передать 
     // на уровень представления или, наоборот, получить с этого уровня.
-    public class PlayerDTO
+    public class SongDTO
     {
         public int Id { get; set; }
 
@@ -13,13 +13,16 @@ namespace MusicLib.BLL.DTO
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "Поле должно быть установлено.")]
-        public int Age { get; set; }
-
-        [Required(ErrorMessage = "Поле должно быть установлено.")]
-        public string? Position { get; set; }
+        public string? Release { get; set; }
 
         public int? GenreId { get; set; }
 
         public string? Genre { get; set; }
+        public int? ArtistId { get; set; }
+
+        public string? Artist { get; set; }
+        public int? VideoId { get; set; }
+
+        public string? Video { get; set; }
     }
 }

@@ -21,10 +21,10 @@ namespace MusicLib.BLL.Services
             var genre = new Genre
             {
                 Id = genreDto.Id,
-                Name = genreDto.Name,
-                Coach = genreDto.Coach
+                Name = genreDto.Name
             };
             await Database.Genres.Create(genre);
+
             await Database.Save();
         }
 
@@ -34,28 +34,30 @@ namespace MusicLib.BLL.Services
             {
                 Id = genreDto.Id,
                 Name = genreDto.Name,
-                Coach = genreDto.Coach
             };
             Database.Genres.Update(genre);
+
             await Database.Save();
         }
 
         public async Task DeleteGenre(int id)
         {
             await Database.Genres.Delete(id);
+
             await Database.Save();
         }
 
         public async Task<GenreDTO> GetGenre(int id)
         {
             var genre = await Database.Genres.Get(id);
+
             if (genre == null)
                 throw new ValidationException("Wrong genre!", "");
+
             return new GenreDTO
             {
                 Id = genre.Id,
-                Name = genre.Name,
-                Coach = genre.Coach
+                Name = genre.Name
             };
         }
 
@@ -63,6 +65,7 @@ namespace MusicLib.BLL.Services
         public async Task<IEnumerable<GenreDTO>> GetGenres()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Genre, GenreDTO>()).CreateMapper();
+
             return mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDTO>>(await Database.Genres.GetAll());
         }
 
