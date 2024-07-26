@@ -24,7 +24,7 @@ namespace MusicLib.BLL.Services
                 Name = playerDto.Name,
                 Age = playerDto.Age,
                 Position = playerDto.Position,
-                TeamId = playerDto.TeamId
+                GenreId = playerDto.GenreId
             };
             await Database.Players.Create(player);
             await Database.Save();
@@ -38,7 +38,7 @@ namespace MusicLib.BLL.Services
                 Name = playerDto.Name,
                 Age = playerDto.Age,
                 Position = playerDto.Position,
-                TeamId = playerDto.TeamId
+                GenreId = playerDto.GenreId
             };
             Database.Players.Update(player);
             await Database.Save();
@@ -61,8 +61,8 @@ namespace MusicLib.BLL.Services
                 Name = player.Name,
                 Age = player.Age,
                 Position = player.Position,
-                TeamId = player.TeamId,
-                Team = player.Team?.Name
+                GenreId = player.GenreId,
+                Genre = player.Genre?.Name
             };
         }
 
@@ -71,7 +71,7 @@ namespace MusicLib.BLL.Services
         public async Task<IEnumerable<PlayerDTO>> GetPlayers()
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<Player, PlayerDTO>()
-            .ForMember("Team", opt => opt.MapFrom(c => c.Team.Name)));
+            .ForMember("Genre", opt => opt.MapFrom(c => c.Genre.Name)));
             var mapper = new Mapper(config);
             return mapper.Map<IEnumerable<Player>, IEnumerable<PlayerDTO>>(await Database.Players.GetAll());
         }

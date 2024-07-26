@@ -7,63 +7,63 @@ using AutoMapper;
 
 namespace MusicLib.BLL.Services
 {
-    public class TeamService: ITeamService
+    public class GenreService: IGenreService
     {
         IUnitOfWork Database { get; set; }
 
-        public TeamService(IUnitOfWork uow)
+        public GenreService(IUnitOfWork uow)
         {
             Database = uow;
         }
 
-        public async Task CreateTeam(TeamDTO teamDto)
+        public async Task CreateGenre(GenreDTO genreDto)
         {
-            var team = new Team
+            var genre = new Genre
             {
-                Id = teamDto.Id,
-                Name = teamDto.Name,
-                Coach = teamDto.Coach
+                Id = genreDto.Id,
+                Name = genreDto.Name,
+                Coach = genreDto.Coach
             };
-            await Database.Teams.Create(team);
+            await Database.Genres.Create(genre);
             await Database.Save();
         }
 
-        public async Task UpdateTeam(TeamDTO teamDto)
+        public async Task UpdateGenre(GenreDTO genreDto)
         {
-            var team = new Team
+            var genre = new Genre
             {
-                Id = teamDto.Id,
-                Name = teamDto.Name,
-                Coach = teamDto.Coach
+                Id = genreDto.Id,
+                Name = genreDto.Name,
+                Coach = genreDto.Coach
             };
-            Database.Teams.Update(team);
+            Database.Genres.Update(genre);
             await Database.Save();
         }
 
-        public async Task DeleteTeam(int id)
+        public async Task DeleteGenre(int id)
         {
-            await Database.Teams.Delete(id);
+            await Database.Genres.Delete(id);
             await Database.Save();
         }
 
-        public async Task<TeamDTO> GetTeam(int id)
+        public async Task<GenreDTO> GetGenre(int id)
         {
-            var team = await Database.Teams.Get(id);
-            if (team == null)
-                throw new ValidationException("Wrong team!", "");
-            return new TeamDTO
+            var genre = await Database.Genres.Get(id);
+            if (genre == null)
+                throw new ValidationException("Wrong genre!", "");
+            return new GenreDTO
             {
-                Id = team.Id,
-                Name = team.Name,
-                Coach = team.Coach
+                Id = genre.Id,
+                Name = genre.Name,
+                Coach = genre.Coach
             };
         }
 
         // Automapper позволяет проецировать одну модель на другую, что позволяет сократить объемы кода и упростить программу.
-        public async Task<IEnumerable<TeamDTO>> GetTeams()
+        public async Task<IEnumerable<GenreDTO>> GetGenres()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Team, TeamDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Team>, IEnumerable<TeamDTO>>(await Database.Teams.GetAll());
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Genre, GenreDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDTO>>(await Database.Genres.GetAll());
         }
 
     }

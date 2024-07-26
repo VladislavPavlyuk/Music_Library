@@ -13,7 +13,7 @@ namespace MusicLib.DAL.Repositories
     {
         private MusicLibContext db;
         private PlayerRepository playerRepository;
-        private TeamRepository teamRepository;
+        private GenreRepository genreRepository;
         private ArtistRepository artistRepository;
         private VideoRepository videoRepository;
 
@@ -39,13 +39,13 @@ namespace MusicLib.DAL.Repositories
                 return artistRepository;
             }
         }
-        public IRepository<Team> Teams
+        public IRepository<Genre> Genres
         {
             get
             {
-                if (teamRepository == null)
-                    teamRepository = new TeamRepository(db);
-                return teamRepository;
+                if (genreRepository == null)
+                    genreRepository = new GenreRepository(db);
+                return genreRepository;
             }
         }
 

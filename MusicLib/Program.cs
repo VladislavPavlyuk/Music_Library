@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddMusicLibContext(connection);
 builder.Services.AddUnitOfWorkService();
-builder.Services.AddTransient<ITeamService, TeamService>();
+builder.Services.AddTransient<IGenreService, GenreService>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
 
 // Добавляем сервисы MVC
@@ -22,6 +22,6 @@ app.UseStaticFiles(); // обрабатывает запросы к файлам в папке wwwroot
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Teams}/{action=Index}/{id?}");
+    pattern: "{controller=Genres}/{action=Index}/{id?}");
 
 app.Run();

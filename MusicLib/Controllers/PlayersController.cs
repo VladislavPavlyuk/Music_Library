@@ -9,11 +9,11 @@ namespace MusicLib.Controllers
     public class PlayersController : Controller
     {
         private readonly IPlayerService playerService;
-        private readonly ITeamService teamService;
-        public PlayersController(IPlayerService playerserv, ITeamService teamserv)
+        private readonly IGenreService genreService;
+        public PlayersController(IPlayerService playerserv, IGenreService genreserv)
         {
             playerService = playerserv;
-            teamService = teamserv;
+            genreService = genreserv;
         }
 
         // GET: Players
@@ -43,7 +43,7 @@ namespace MusicLib.Controllers
         // GET: Players/Create
         public async Task<IActionResult> Create()
         {
-            ViewBag.ListTeams = new SelectList(await teamService.GetTeams(), "Id", "Name");
+            ViewBag.Listgenres = new SelectList(await genreService.GetGenres(), "Id", "Name");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace MusicLib.Controllers
                 await playerService.CreatePlayer(player);
                 return View("~/Views/Players/Index.cshtml", await playerService.GetPlayers());
             }
-            ViewBag.ListTeams = new SelectList(await teamService.GetTeams(), "Id", "Name", player.TeamId);
+            ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", player.GenreId);
             return View(player);
         }
 
@@ -71,7 +71,7 @@ namespace MusicLib.Controllers
                     return NotFound();
                 }
                 PlayerDTO player = await playerService.GetPlayer((int)id);
-                ViewBag.ListTeams = new SelectList(await teamService.GetTeams(), "Id", "Name", player.TeamId);
+                ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", player.GenreId);
                 return View(player);
             }
             catch (ValidationException ex)
@@ -91,7 +91,7 @@ namespace MusicLib.Controllers
                 await playerService.UpdatePlayer(player);
                 return View("~/Views/Players/Index.cshtml", await playerService.GetPlayers());
             }
-            ViewBag.ListTeams = new SelectList(await teamService.GetTeams(), "Id", "Name", player.TeamId);
+            ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", player.GenreId);
             return View(player);
         }
 

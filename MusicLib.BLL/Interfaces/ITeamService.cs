@@ -2,12 +2,12 @@
 
 namespace MusicLib.BLL.Interfaces
 {
-    public interface ITeamService 
+    public interface IGenreService 
     {
-        Task CreateTeam(TeamDTO teamDto);
-        Task UpdateTeam(TeamDTO teamDto);
-        Task DeleteTeam(int id);
-        Task<TeamDTO> GetTeam(int id);
-        Task<IEnumerable<TeamDTO>> GetTeams();
+        Task CreateGenre(GenreDTO genreDto);
+        Task UpdateGenre(GenreDTO genreDto);
+        Task DeleteGenre(int id);
+        Task<GenreDTO> GetGenre(int id);
+        Task<IEnumerable<GenreDTO>> GetGenres();
     }
 }

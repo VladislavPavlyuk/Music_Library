@@ -10,8 +10,8 @@ namespace MusicLib.DAL.Entities
 
         public string? Position { get; set; }
 
-        public int? TeamId { get; set; }
+        public int? GenreId { get; set; }
 
-        public Team? Team { get; set; }
+        public Genre? Genre { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 namespace MusicLib.DAL.Entities
 {  
-    public class Team
+    public class Genre
     {
         public int Id { get; set; }
 

@@ -18,8 +18,8 @@ namespace MusicLib.BLL.DTO
         [Required(ErrorMessage = "Поле должно быть установлено.")]
         public string? Position { get; set; }
 
-        public int? TeamId { get; set; }
+        public int? GenreId { get; set; }
 
-        public string? Team { get; set; }
+        public string? Genre { get; set; }
     }
 }

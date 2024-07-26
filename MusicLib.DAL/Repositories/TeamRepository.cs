@@ -5,48 +5,48 @@ using MusicLib.DAL.EF;
 
 namespace MusicLib.DAL.Repositories
 {
-    public class TeamRepository : IRepository<Team>
+    public class GenreRepository : IRepository<Genre>
     {
         private MusicLibContext db;
 
-        public TeamRepository(MusicLibContext context)
+        public GenreRepository(MusicLibContext context)
         {
             this.db = context;
         }
 
-        public async Task<IEnumerable<Team>> GetAll()
+        public async Task<IEnumerable<Genre>> GetAll()
         {
-            return await db.Teams.ToListAsync();
+            return await db.Genres.ToListAsync();
         }
 
-        public async Task<Team> Get(int id)
+        public async Task<Genre> Get(int id)
         {
-            Team? team = await db.Teams.FindAsync(id);
-            return team!;
+            Genre? genre = await db.Genres.FindAsync(id);
+            return genre!;
         }
 
-        public async Task<Team> Get(string name)
+        public async Task<Genre> Get(string name)
         {
-            var teams = await db.Teams.Where(a => a.Name == name).ToListAsync(); 
-            Team? team = teams?.FirstOrDefault();
-            return team!;
+            var genres = await db.Genres.Where(a => a.Name == name).ToListAsync(); 
+            Genre? genre = genres?.FirstOrDefault();
+            return genre!;
         }
 
-        public async Task Create(Team team)
+        public async Task Create(Genre genre)
         {
-            await db.Teams.AddAsync(team);
+            await db.Genres.AddAsync(genre);
         }
 
-        public void Update(Team team)
+        public void Update(Genre genre)
         {
-            db.Entry(team).State = EntityState.Modified;
+            db.Entry(genre).State = EntityState.Modified;
         }
 
         public async Task Delete(int id)
         {
-            Team? team = await db.Teams.FindAsync(id);
-            if (team != null)
-                db.Teams.Remove(team);
+            Genre? genre = await db.Genres.FindAsync(id);
+            if (genre != null)
+                db.Genres.Remove(genre);
         }
     }
 }

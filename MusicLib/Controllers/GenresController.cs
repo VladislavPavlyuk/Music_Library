@@ -5,22 +5,22 @@ using MusicLib.BLL.Infrastructure;
 
 namespace MusicLib.Controllers
 {
-    public class TeamsController : Controller
+    public class GenresController : Controller
     {
-        private readonly ITeamService teamService;
+        private readonly IGenreService genreService;
 
-        public TeamsController(ITeamService serv)
+        public GenresController(IGenreService serv)
         {
-            teamService = serv;
+            genreService = serv;
         }
 
-        // GET: Teams
+        // GET: Genres
         public async Task<IActionResult> Index()
         {
-            return View(await teamService.GetTeams());
+            return View(await genreService.GetGenres());
         }
 
-        // GET: Teams/Details/5
+        // GET: Genres/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             try
@@ -29,8 +29,8 @@ namespace MusicLib.Controllers
                 {
                     return NotFound();
                 }
-                TeamDTO team = await teamService.GetTeam((int)id);
-                return View(team);
+                GenreDTO genre = await genreService.GetGenre((int)id);
+                return View(genre);
             }
             catch (ValidationException ex)
             {
@@ -39,27 +39,27 @@ namespace MusicLib.Controllers
         }
 
         //
-        // GET: /Teams/Create
+        // GET: /Genres/Create
 
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Teams/Create
+        // POST: Genres/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TeamDTO team)
+        public async Task<IActionResult> Create(GenreDTO genre)
         {
             if (ModelState.IsValid)
             {
-                await teamService.CreateTeam(team);
-                return View("~/Views/Teams/Index.cshtml", await teamService.GetTeams());
+                await genreService.CreateGenre(genre);
+                return View("~/Views/Genres/Index.cshtml", await genreService.GetGenres());
             }
-            return View(team);
+            return View(genre);
         }
 
-        // GET: Teams/Edit/5
+        // GET: Genres/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             try
@@ -68,8 +68,8 @@ namespace MusicLib.Controllers
                 {
                     return NotFound();
                 }
-                TeamDTO team = await teamService.GetTeam((int)id);
-                return View(team);
+                GenreDTO genre = await genreService.GetGenre((int)id);
+                return View(genre);
             }
             catch (ValidationException ex)
             {
@@ -77,20 +77,20 @@ namespace MusicLib.Controllers
             }
         }
 
-        // POST: Teams/Edit/5
+        // POST: Genres/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(TeamDTO team)
+        public async Task<IActionResult> Edit(GenreDTO genre)
         {
             if (ModelState.IsValid)
             {
-                await teamService.UpdateTeam(team);
-                return View("~/Views/Teams/Index.cshtml", await teamService.GetTeams());
+                await genreService.UpdateGenre(genre);
+                return View("~/Views/Genres/Index.cshtml", await genreService.GetGenres());
             }
-            return View(team);
+            return View(genre);
         }
 
-        // GET: Teams/Delete/5
+        // GET: Genres/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             try
@@ -99,8 +99,8 @@ namespace MusicLib.Controllers
                 {
                     return NotFound();
                 }
-                TeamDTO team = await teamService.GetTeam((int)id);
-                return View(team);
+                GenreDTO genre = await genreService.GetGenre((int)id);
+                return View(genre);
             }
             catch (ValidationException ex)
             {
@@ -108,13 +108,13 @@ namespace MusicLib.Controllers
             }
         }
 
-        // POST: Teams/Delete/5
+        // POST: Genres/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await teamService.DeleteTeam(id);
-            return View("~/Views/Teams/Index.cshtml", await teamService.GetTeams());
+            await genreService.DeleteGenre(id);
+            return View("~/Views/Genres/Index.cshtml", await genreService.GetGenres());
         }
 
     }

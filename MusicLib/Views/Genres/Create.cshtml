@@ -1,16 +1,15 @@
-﻿@model MusicLib.BLL.DTO.TeamDTO
+﻿@model MusicLib.BLL.DTO.GenreDTO
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
 }
 
-<h2>Изменение клуба</h2>
+<h2>Добавление нового клуба</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 @Html.Label("Название клуба:")
                 <input asp-for="Name" class="form-control" />
@@ -22,7 +21,7 @@
                 <span asp-validation-for="Coach" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Изменить" class="btn btn-primary" />
+                <input type="submit" value="Добавить" class="btn btn-primary" />
             </div>
         </form>
     </div>
