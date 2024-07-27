@@ -28,6 +28,7 @@ namespace MusicLib.BLL.Services
                 VideoId = songDto.VideoId
             };
             await Database.Songs.Create(song);
+
             await Database.Save();
         }
 
@@ -80,7 +81,10 @@ namespace MusicLib.BLL.Services
         public async Task<IEnumerable<SongDTO>> GetSongs()
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<Song, SongDTO>()
-            .ForMember("Genre", opt => opt.MapFrom(c => c.Genre.Name)));
+            .ForMember("Genre", opt => opt.MapFrom(c => c.Genre.Name))
+            .ForMember("Artist", opt => opt.MapFrom(c => c.Artist.Name))
+            .ForMember("Video", opt => opt.MapFrom(c => c.Video.FileName))
+            );
 
             var mapper = new Mapper(config);
 

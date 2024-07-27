@@ -17,19 +17,28 @@ namespace MusicLib.DAL.Repositories
 
         public async Task<IEnumerable<Song>> GetAll()
         {
-            return await db.Songs.Include(o => o.Genre).ToListAsync();
+            return await db.Songs.Include(o => o.Genre).
+                                    Include(o => o.Artist).
+                                    Include(o => o.Video).ToListAsync();
         }
 
         public async Task<Song> Get(int id)
         {
-            var songs = await db.Songs.Include(o => o.Genre).Where(a => a.Id == id).ToListAsync();
+            var songs = await db.Songs.Include(o => o.Genre).Where(a => a.Id == id)
+                .Include(o => o.Artist).Where(a => a.Id == id)
+                .Include(o => o.Video).Where(a => a.Id == id)
+                .ToListAsync();
             Song? song = songs?.FirstOrDefault();
             return song!;
         }
 
         public async Task<Song> Get(string name)
         {         
-            var songs = await db.Songs.Include(o => o.Genre).Where(a => a.Name == name).ToListAsync();
+            var songs = await db.Songs.Include(o => o.Genre).Where(a => a.Name == name)
+                .Include(o => o.Artist).Where(a => a.Name == name)
+                .Include(o => o.Video).Where(a => a.Name == name)
+                .ToListAsync();
+
             Song? song = songs?.FirstOrDefault();
             return song!;
         }

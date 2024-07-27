@@ -9,7 +9,7 @@ namespace MusicLib.BLL.DTO
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Поле должно быть установлено.")]
+        [Required(ErrorMessage = "Requred!")]
         public string? Name { get; set; }
 
     }

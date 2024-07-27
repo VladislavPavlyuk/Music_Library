@@ -53,7 +53,7 @@ namespace MusicLib.Controllers
         {
             ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name");
             ViewBag.ListArtists = new SelectList(await artistService.GetArtists(), "Id", "Name");
-            ViewBag.ListVideos = new SelectList(await videoService.GetVideos(), "Id", "Name");
+            ViewBag.ListVideos = new SelectList(await videoService.GetVideos(), "Id", "FileName");
             return View();
         }
 
@@ -69,7 +69,7 @@ namespace MusicLib.Controllers
             }
             ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", song.GenreId);
             ViewBag.ListArtists = new SelectList(await artistService.GetArtists(), "Id", "Name", song.ArtistId);
-            ViewBag.ListVideos = new SelectList(await videoService.GetVideos(), "Id", "Name", song.VideoId);
+            ViewBag.ListVideos = new SelectList(await videoService.GetVideos(), "Id", "FileName", song.VideoId);
 
             return View(song);
         }
@@ -86,7 +86,7 @@ namespace MusicLib.Controllers
                 SongDTO song = await songService.GetSong((int)id);
                 ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", song.GenreId);
                 ViewBag.ListArtists = new SelectList(await artistService.GetArtists(), "Id", "Name", song.ArtistId);
-                ViewBag.ListVideos = new SelectList(await videoService.GetVideos(), "Id", "Name", song.VideoId);
+                ViewBag.ListVideos = new SelectList(await videoService.GetVideos(), "Id", "FileName", song.VideoId);
                 return View(song);
             }
             catch (ValidationException ex)
@@ -108,7 +108,7 @@ namespace MusicLib.Controllers
             }
             ViewBag.ListGenres = new SelectList(await genreService.GetGenres(), "Id", "Name", song.GenreId);
             ViewBag.ListArtists = new SelectList(await artistService.GetArtists(), "Id", "Name", song.ArtistId);
-            ViewBag.ListVideos = new SelectList(await videoService.GetVideos(), "Id", "Name", song.VideoId);
+            ViewBag.ListVideos = new SelectList(await videoService.GetVideos(), "Id", "FileName", song.VideoId);
             return View(song);
         }
 

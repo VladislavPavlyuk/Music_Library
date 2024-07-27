@@ -3,10 +3,10 @@ using MusicLib.BLL.Interfaces;
 using MusicLib.BLL.Services;
 using MusicLib.BLL.Infrastructure;
 
-// Microsoft.EntityFrameworkCore.Design пакет необходим для миграций
+// Microsoft.EntityFrameworkCore.Design РїР°РєРµС‚ РЅРµРѕР±С…РѕРґРёРј РґР»СЏ РјРёРіСЂР°С†РёР№
 var builder = WebApplication.CreateBuilder(args);
 
-// Получаем строку подключения из файла конфигурации
+// РџРѕР»СѓС‡Р°РµРј СЃС‚СЂРѕРєСѓ РїРѕРґРєР»СЋС‡РµРЅРёСЏ РёР· С„Р°Р№Р»Р° РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddMusicLibContext(connection);
 builder.Services.AddUnitOfWorkService();
@@ -15,12 +15,12 @@ builder.Services.AddTransient<IArtistService, ArtistService>();
 builder.Services.AddTransient<IGenreService, GenreService>();
 builder.Services.AddTransient<ISongService, SongService>();
 
-// Добавляем сервисы MVC
+// Р”РѕР±Р°РІР»СЏРµРј СЃРµСЂРІРёСЃС‹ MVC
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-app.UseStaticFiles(); // обрабатывает запросы к файлам в папке wwwroot
+app.UseStaticFiles(); // РѕР±СЂР°Р±Р°С‚С‹РІР°РµС‚ Р·Р°РїСЂРѕСЃС‹ Рє С„Р°Р№Р»Р°Рј РІ РїР°РїРєРµ wwwroot
 
 app.MapControllerRoute(
     name: "default",
