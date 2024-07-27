@@ -106,6 +106,10 @@ namespace MusicLib.Controllers
             {
                 return NotFound(ex.Message);
             }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         // POST: Genres/Delete/5

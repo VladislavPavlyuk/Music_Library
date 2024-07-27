@@ -55,10 +55,9 @@ namespace MusicLib.DAL.Repositories
 
         public async Task Delete(int id)
         {
-            Song? song = await db.Songs.FindAsync(id);
-            if (song != null)
-                db.Songs.Remove(song);
+                Song? song = await db.Songs.FindAsync(id);
+                if (song != null)
+                    db.Songs.Remove(song);            
         }
-
     }
 }

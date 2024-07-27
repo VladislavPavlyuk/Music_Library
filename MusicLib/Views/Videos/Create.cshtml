@@ -2,6 +2,12 @@
 @{
     ViewBag.Title = "Create";
 }
+@if (TempData["Message"] != null)
+{
+    <div class="warning alert-success">
+        @TempData["Message"]
+    </div>
+}
 
 <h3>Add new Video</h3>
 <hr />

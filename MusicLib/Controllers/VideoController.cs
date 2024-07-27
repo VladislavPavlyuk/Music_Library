@@ -49,7 +49,7 @@ namespace MusicLib.Controllers
 
         public IActionResult Create()
         {
-            TempData["Message"] = "Model is empty!";
+            TempData["Message"] = "Model is empty...";
             return View();
         }
 
@@ -74,7 +74,7 @@ namespace MusicLib.Controllers
         {
             if (uploadedFile != null)
             {
-                TempData["Message"] = "File was not uploaded!";
+                TempData["Message"] = "File was uploaded successfully!";
 
                 // Путь к папке Files
                 string path = "/Files/" + uploadedFile.FileName; // имя файла
@@ -96,7 +96,7 @@ namespace MusicLib.Controllers
                 return View("~/Views/Videos/Index.cshtml", await videoService.GetVideos());
 
             } else {
-                TempData["Message"] = "File uploaded successfully!";
+                TempData["Message"] = "File was NOT uploaded";
 
             }
 
@@ -147,7 +147,13 @@ namespace MusicLib.Controllers
                 return View(video);
             }
             catch (ValidationException ex)
+            {                
+                return NotFound(ex.Message);
+            }
+            catch(Exception ex) 
             {
+                TempData["Message"] = ex.Message;
+
                 return NotFound(ex.Message);
             }
         }
@@ -157,7 +163,15 @@ namespace MusicLib.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await videoService.DeleteVideo(id);
+            try
+            {
+                await videoService.DeleteVideo(id);
+            }
+            catch(Exception ex)
+            { 
+                TempData["Message"] = ex.Message;
+            }
+            
             return View("~/Views/Videos/Index.cshtml", await videoService.GetVideos());
         }
 

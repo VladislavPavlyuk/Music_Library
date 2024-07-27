@@ -44,10 +44,17 @@ namespace MusicLib.BLL.Services
 
         public async Task DeleteArtist(int id)
         {
-            await Database.Artists.Delete(id);
+            try 
+            { 
+                await Database.Artists.Delete(id);
 
-            await Database.Save();
-        }
+                await Database.Save();            
+            } 
+            catch (Exception ex)
+            {
+
+            }
+}
 
         public async Task<ArtistDTO> GetArtist(int id)
         {

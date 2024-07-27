@@ -44,9 +44,17 @@ namespace MusicLib.BLL.Services
 
         public async Task DeleteVideo(int id)
         {
-            await Database.Videos.Delete(id);
+            try
+            {
+                await Database.Videos.Delete(id);
+                
+                await Database.Save();
 
-            await Database.Save();
+            } catch (Exception ex)
+            {
+
+            }
+
         }
 
         public async Task<VideoDTO> GetVideo(int id)

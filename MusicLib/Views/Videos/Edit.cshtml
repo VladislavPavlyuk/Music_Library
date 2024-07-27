@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "Edit";
 }
+@if (TempData["Message"] != null)
+{
+    <div class="warning alert-success">
+        @TempData["Message"]
+    </div>
+}
 
 <h2>Edit</h2>
 <hr />

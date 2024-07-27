@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "Details";
 }
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["Message"]
+    </div>
+}
 
 <h2>Details</h2>
 

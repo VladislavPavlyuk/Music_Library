@@ -42,10 +42,17 @@ namespace MusicLib.BLL.Services
 
         public async Task DeleteGenre(int id)
         {
-            await Database.Genres.Delete(id);
+            try
+            {            
+                await Database.Genres.Delete(id);
 
-            await Database.Save();
-        }
+                await Database.Save();
+            } 
+            catch (Exception ex)
+            {
+
+            }
+}
 
         public async Task<GenreDTO> GetGenre(int id)
         {
