@@ -3,7 +3,12 @@
 @{
     ViewBag.Title = "Index";
 }
-
+@if (TempData["Message"] != null)
+{
+    <div class="warning alert-success">
+        @TempData["Message"]
+    </div>
+}
 <h2>List of Videos</h2>
 <p>
     <a asp-action="Create">Add a new Video</a>
@@ -36,3 +41,4 @@
         </tr>
     }
 </table>
+

@@ -1,38 +1,22 @@
 ﻿@model MusicLib.BLL.DTO.VideoDTO
-
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Add new Video</h2>
+<h3>Add new Video</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="Create" asp-controller="Videos" method="post" enctype="multipart/form-data">            
+            
             <div class="form-group">
-                @Html.Label("FileName:")
-                <input asp-for="FileName" class="form-control" />
-                <span asp-validation-for="FileName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                @Html.Label("Path:")
-                <input asp-for="Path" class="form-control" />
-                <span asp-validation-for="Path" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+                <input type="file" name="uploadedFile" /><br>
                 <input type="submit" value="Add" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+@*Благодаря установке атрибута формы enctype="multipart/form-data" 
+браузер будет знать, что вместе с формой надо передать файл.*@
 
-<div>
-    <a asp-action="Index">Вернуться к списку клубов</a>
-</div>
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
 

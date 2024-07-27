@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MusicLib.DAL.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace MusicLib.BLL.DTO
 {
@@ -9,10 +10,9 @@ namespace MusicLib.BLL.DTO
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Requred!")]
+        //[Required(ErrorMessage = "Requred!")]
         public string? FileName { get; set; }
 
-        [Required(ErrorMessage = "Requred!")]
         public string? Path { get; set; }
     }
 }
