@@ -1,0 +1,24 @@
+﻿@model MusicLib.BLL.DTO.VideoDTO
+
+@{
+    ViewBag.Title = "Details";
+}
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["Message"]
+    </div>
+}
+
+<h2>Video</h2>
+
+<div>
+
+    <video src="@Html.DisplayFor(model => model.Path)" class="object-fit-contain" controls></video>
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back</a>
+</div>
+
