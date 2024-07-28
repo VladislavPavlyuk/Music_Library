@@ -45,8 +45,10 @@ namespace MusicLib.DAL.Repositories
         public async Task Delete(int id)
         {
             Genre? genre = await db.Genres.FindAsync(id);
-            if (genre != null)
+
+            if (genre != null)          
                 db.Genres.Remove(genre);
+            
         }
     }
 }

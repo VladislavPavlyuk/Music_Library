@@ -2,12 +2,21 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using MusicLib.DAL.Entities;
+using System.Diagnostics;
 
 namespace MusicLib.DAL.EF
 {   
     public class MusicLibContext : DbContext
     { 
         public DbSet<Genre> Genres { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Song>()
+                .HasOne<Genre>(s => s.Genre)
+                .WithMany(g => g.Songs)
+                .HasForeignKey(s => s.GenreId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
         public DbSet<Song> Songs { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Video> Videos { get; set; }
