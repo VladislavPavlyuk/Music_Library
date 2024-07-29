@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IO;
+using Microsoft.AspNetCore.Mvc;
 using MusicLib.BLL.DTO;
 using MusicLib.BLL.Interfaces;
 using MusicLib.BLL.Infrastructure;
@@ -165,6 +166,15 @@ namespace MusicLib.Controllers
         {
             try
             {
+                VideoDTO video = await videoService.GetVideo((int)id);
+
+                if (video != null)
+                    DeleteFile(video.Path);
+                else
+                {
+                    TempData["Message"] = "video == null!";
+                }
+
                 await videoService.DeleteVideo(id);
             }
             catch(Exception ex)
@@ -175,5 +185,19 @@ namespace MusicLib.Controllers
             return View("~/Views/Videos/Index.cshtml", await videoService.GetVideos());
         }
 
+        public void DeleteFile(string path)
+        {           
+
+            string filePath = _appEnvironment.WebRootPath + path;
+
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+                TempData["Message"] = path + " was deleted successfully!";
+            } else
+            {
+                TempData["Message"] = path + " was not found!";
+            }
+        }
     }
 }
