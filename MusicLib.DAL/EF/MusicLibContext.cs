@@ -15,7 +15,13 @@ namespace MusicLib.DAL.EF
                 .HasOne<Genre>(s => s.Genre)
                 .WithMany(g => g.Songs)
                 .HasForeignKey(s => s.GenreId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Song>()
+                .HasOne<Artist>(s => s.Artist)
+                .WithMany(g => g.Songs)
+                .HasForeignKey(s => s.ArtistId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
         public DbSet<Song> Songs { get; set; }
         public DbSet<Artist> Artists { get; set; }
