@@ -22,6 +22,12 @@ namespace MusicLib.DAL.EF
                 .WithMany(g => g.Songs)
                 .HasForeignKey(s => s.ArtistId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Song>()
+                .HasOne<Video>(s => s.Video)
+                .WithMany(g => g.Songs)
+                .HasForeignKey(s => s.VideoId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
         public DbSet<Song> Songs { get; set; }
         public DbSet<Artist> Artists { get; set; }
