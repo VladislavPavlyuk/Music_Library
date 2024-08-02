@@ -12,6 +12,8 @@ namespace MusicLib.DAL.Repositories
     public class EFUnitOfWork : IUnitOfWork
     {
         private MusicLibContext db;
+        private RoleRepository roleRepository;
+        private UserRepository userRepository;
         private SongRepository songRepository;
         private GenreRepository genreRepository;
         private ArtistRepository artistRepository;
@@ -20,6 +22,25 @@ namespace MusicLib.DAL.Repositories
         public EFUnitOfWork(MusicLibContext context)
         {
             db = context;
+        }
+
+        public IRepository<Role> Roles
+        {
+            get
+            {
+                if (roleRepository == null)
+                    roleRepository = new RoleRepository(db);
+                return roleRepository;
+            }
+        }
+        public IRepository<User> Users
+        {
+            get
+            {
+                if (userRepository == null)
+                    userRepository = new UserRepository(db);
+                return userRepository;
+            }
         }
         public IRepository<Video> Videos
         {

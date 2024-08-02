@@ -8,6 +8,7 @@ namespace MusicLib.DAL.EF
 {   
     public class MusicLibContext : DbContext
     { 
+
         public DbSet<Genre> Genres { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +30,8 @@ namespace MusicLib.DAL.EF
                 .HasForeignKey(s => s.VideoId)
                 .OnDelete(DeleteBehavior.SetNull);
         }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Song> Songs { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Video> Videos { get; set; }

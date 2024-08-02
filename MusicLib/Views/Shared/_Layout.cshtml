@@ -1,38 +1,40 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Music Library</title>
+    <title>@ViewData["Title"] - Music Library ASP.NET Core MVC Application</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MusicLib.styles.css" asp-append-version="true" />
     <link rel="icon" type="image/x-icon" href="~/favicon.png" asp-append-version="true">
 </head>
 <body>
-    <header>
+        <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Genres" asp-action="Index">Genres</a>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Artists" asp-action="Index">Artists</a>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Videos" asp-action="Index">Videos</a>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Songs" asp-action="Index">Songs</a>
-                </div>
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home page</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Register">Registration</a>
+                 @if (Context.Session.GetString("Email") == null)
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Login">Logоn</a>
+                }
+                else
+                {
+                    <span class="navbar-brand">Hello, @Context.Session.GetString("Email")  </span>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                }
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="container body-content">
+        @RenderBody()
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; @DateTime.Now.Year - Music Library
+            </div>
+        </footer>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - Music Library
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
