@@ -37,9 +37,15 @@
                 @Html.DisplayFor(modelItem => item.Path)
             </td>
             <td>
-                <a asp-action="Watch" asp-route-id="@item.Id">Watch</a> |
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Watch" asp-route-id="@item.Id">Watch</a> 
+
+                @if (Context.Session.GetInt32("Role") == 1)
+                {
+                       <a>|</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a>|</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"> Delete </a>
+                }
             </td>
         </tr>
     }

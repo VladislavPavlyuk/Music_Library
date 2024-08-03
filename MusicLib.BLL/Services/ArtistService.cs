@@ -7,44 +7,47 @@ using AutoMapper;
 
 namespace MusicLib.BLL.Services
 {
-    public class RoleService : IRoleService
+    public class ArtistService : IArtistService
     {
         IUnitOfWork Database { get; set; }
 
-        public RoleService(IUnitOfWork uow)
+        public ArtistService(IUnitOfWork uow)
         {
             Database = uow;
         }
 
-        public async Task CreateRole(RoleDTO roleDto)
+        public async Task CreateArtist(ArtistDTO artistDto)
         {
-            var role = new Role
+            var artist = new Artist
             {
-                Id = roleDto.Id,
-                Name = roleDto.Name
+                Id = artistDto.Id,
+                Name = artistDto.Name,
+                Birthdate = artistDto.Birthdate
+
             };
-            await Database.Roles.Create(role);
+            await Database.Artists.Create(artist);
 
             await Database.Save();
         }
 
-        public async Task UpdateRole(RoleDTO roleDto)
+        public async Task UpdateArtist(ArtistDTO artistDto)
         {
-            var role = new Role
+            var artist = new Artist
             {
-                Id = roleDto.Id,
-                Name = roleDto.Name
+                Id = artistDto.Id,
+                Name = artistDto.Name,
+                Birthdate = artistDto.Birthdate
             };
-            Database.Roles.Update(role);
+            Database.Artists.Update(artist);
 
             await Database.Save();
         }
 
-        public async Task DeleteRole(int id)
+        public async Task DeleteArtist(int id)
         {
             try 
             { 
-                await Database.Roles.Delete(id);
+                await Database.Artists.Delete(id);
 
                 await Database.Save();            
             } 
@@ -54,26 +57,27 @@ namespace MusicLib.BLL.Services
             }
 }
 
-        public async Task<RoleDTO> GetRole(int id)
+        public async Task<ArtistDTO> GetArtist(int id)
         {
-            var role = await Database.Roles.Get(id);
+            var artist = await Database.Artists.Get(id);
 
-            if (role == null)
-                throw new ValidationException("Wrong role!", "");
+            if (artist == null)
+                throw new ValidationException("Wrong artist!", "");
 
-            return new RoleDTO
+            return new ArtistDTO
             {
-                Id = role.Id,
-                Name = role.Name
+                Id = artist.Id,
+                Name = artist.Name,
+                Birthdate = artist.Birthdate
             };
         }
 
         // Automapper позволяет проецировать одну модель на другую, что позволяет сократить объемы кода и упростить программу.
-        public async Task<IEnumerable<RoleDTO>> GetRoles()
+        public async Task<IEnumerable<ArtistDTO>> GetArtists()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Role, RoleDTO>()).CreateMapper();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Artist, ArtistDTO>()).CreateMapper();
 
-            return mapper.Map<IEnumerable<Role>, IEnumerable<RoleDTO>>(await Database.Roles.GetAll());
+            return mapper.Map<IEnumerable<Artist>, IEnumerable<ArtistDTO>>(await Database.Artists.GetAll());
         }
     }
 }

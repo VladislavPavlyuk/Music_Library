@@ -70,6 +70,25 @@ namespace MusicLib.BLL.Services
                 Role = user.Role?.Name
             };
         }
+        public async Task<UserDTO> GetUserByEmail(string email)
+        {
+            var user = await Database.Users.Get(email);
+            if (user == null)
+            {
+                UserDTO nullUser = new UserDTO();
+                return nullUser;
+            }
+
+            return new UserDTO
+            {
+                Id = user.Id,
+                Password = user.Password,
+                Salt = user.Salt,
+                Email = user.Email,
+                RoleId = user.RoleId,
+                Role = user.Role?.Name
+            };
+        }
 
         // Automapper позволяет проецировать одну модель на другую, что позволяет сократить объемы кода и упростить программу.
 

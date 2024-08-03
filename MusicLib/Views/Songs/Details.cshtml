@@ -42,6 +42,10 @@
     </dl>    
 </div>
 <p>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    @if (Context.Session.GetInt32("Role") == 1)
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+        <a>|</a>
+    }
     <a asp-action="Index">Back</a>
 </p>

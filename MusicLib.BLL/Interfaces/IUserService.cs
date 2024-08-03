@@ -8,6 +8,7 @@ namespace MusicLib.BLL.Interfaces
         Task UpdateUser(UserDTO userDto);
         Task DeleteUser(int id);
         Task<UserDTO> GetUser(int id);
+        Task<UserDTO> GetUserByEmail(string email);
         Task<IEnumerable<UserDTO>> GetUsers();
     }
 }

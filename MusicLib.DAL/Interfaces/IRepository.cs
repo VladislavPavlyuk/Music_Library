@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using MusicLib.DAL.Entities;
 
 namespace MusicLib.DAL.Interfaces
 {

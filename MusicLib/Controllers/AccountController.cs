@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using MusicLib.BLL.DTO;
+using MusicLib.BLL.Interfaces;
+using MusicLib.BLL.Services;
 using MusicLib.DAL.EF;
 using MusicLib.DAL.Entities;
 using MusicLib.Models;
@@ -9,13 +14,16 @@ namespace MusicLib.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly MusicLibContext _context;
+        private readonly IUserService userService;
 
-        public AccountController(MusicLibContext context)
+        public AccountController(IUserService userServ)
         {
-            _context = context;
+            userService = userServ;
         }
-
+        public IActionResult Register()
+        {
+            return View();
+        }
         public ActionResult Login()
         {
             return View();
@@ -23,58 +31,41 @@ namespace MusicLib.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(LoginModel logon)
+        public async Task<IActionResult> Register(RegisterModel reg)
         {
             if (ModelState.IsValid)
             {
-                if(_context.Users.ToList().Count == 0)
+                //UserDTO user = new UserDTO();
+                /*if (reg.Login == "admin")
                 {
-                    ModelState.AddModelError("", "Wrong login or password!");
-                    return View(logon);
+                    ModelState.AddModelError("Login", "admin - запрещенное имя");
+                    return View(reg);
                 }
-                var users = _context.Users.Where(a => a.Email == logon.Email);
-                if (users.ToList().Count == 0)
+               
+                UserDTO userLogin = await _userService.GetUserByLogin(reg.Login);
+                if (reg.Login == userLogin.Login)
                 {
-                    ModelState.AddModelError("", "Wrong login or password!");
-                    return View(logon);
-                }
-                var user = users.First();
-                string? salt = user.Salt;
+                    ModelState.AddModelError("Login", "Пользователь с таким логином существует");
+                    return View(reg);
+                } */
 
-                //переводим пароль в байт-массив  
-                byte[] password = Encoding.Unicode.GetBytes(salt + logon.Password);
+                UserDTO user = await userService.GetUserByEmail(reg.Email);
 
-                //вычисляем хеш-представление в байтах  
-                byte[] byteHash = SHA256.HashData(password);
-
-                StringBuilder hash = new StringBuilder(byteHash.Length);
-                for (int i = 0; i < byteHash.Length; i++)
-                    hash.Append(string.Format("{0:X2}", byteHash[i]));
-
-                if (user.Password != hash.ToString())
+                if (reg.Email == user.Email)
                 {
-                    ModelState.AddModelError("", "Wrong login or password!");
-                    return View(logon);
+                    ModelState.AddModelError("Email", "Email is exist already!");
+                    return View(reg);
                 }
-                HttpContext.Session.SetString("Email", user.Email);
-
-                return RedirectToAction("Index", "Home");
-            }
-            return View(logon);
-        }
-
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Register(RegisterModel reg)
-        {
-            if (ModelState.IsValid)
-            {
-                User user = new User();
+                if (reg.Password.Length < 4 )
+                {
+                    ModelState.AddModelError("Password", "Password should have 4 or more digits");
+                    return View(reg);
+                }
+                else if (!reg.Password.Any(char.IsDigit))
+                {
+                    ModelState.AddModelError("Password", "Password should have even one or more numbers");
+                    return View(reg);
+                }
                 user.Email = reg.Email;
 
                 byte[] saltbuf = new byte[16];
@@ -99,12 +90,53 @@ namespace MusicLib.Controllers
 
                 user.Password = hash.ToString();
                 user.Salt = salt;
-                _context.Users.Add(user);
-                _context.SaveChanges();
+                user.RoleId = 3; //Candidate Role
+
+                await userService.CreateUser(user);
+
                 return RedirectToAction("Login");
             }
 
             return View(reg);
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginModel logon)
+        {
+            if (ModelState.IsValid)
+            {
+                UserDTO user = await userService.GetUserByEmail(logon.Email);
+
+                if (user.Id == 0)
+                {
+                    ModelState.AddModelError("Email", "Email is not exist");
+                    return View(logon);
+                }
+
+                string? salt = user.Salt;
+
+                byte[] password = Encoding.Unicode.GetBytes(salt + logon.Password);
+
+                byte[] byteHash = SHA256.HashData(password);
+
+                StringBuilder hash = new StringBuilder(byteHash.Length);
+
+                for (int i = 0; i < byteHash.Length; i++)
+                    hash.Append(string.Format("{0:X2}", byteHash[i]));
+
+                if (user.Password != hash.ToString())
+                {
+                    ModelState.AddModelError("Password", "Password is not exist");
+                    return View(logon);
+                }
+                HttpContext.Session.SetString("Email", user.Email);
+                HttpContext.Session.SetInt32("Role", (int)user.RoleId);
+                HttpContext.Session.SetInt32("Id", user.Id);
+
+                return RedirectToAction("Index", "Home");
+            }
+            return View(logon);
         }
     }
 }

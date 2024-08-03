@@ -38,7 +38,20 @@ namespace MusicLib.DAL.EF
         public MusicLibContext(DbContextOptions<MusicLibContext> options)
                    : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
+            if (Database.EnsureCreated())
+            {
+                Roles.Add(new Role { Name = "Admin" });
+                Roles.Add(new Role { Name = "User" });
+                Roles.Add(new Role { Name = "Candidate" });
+
+                Users.Add(new User { Email = "admin@admin.com", 
+                    Password = "63F66566834843057ECD47890F10987FBD0D2022BB2A8ED84ED04890B9644E1C", 
+                    Salt = "073B6AA3BED5420579D70404FD470461",
+                    RoleId = 1 });
+
+                SaveChanges();
+            }
         }
     }
     // Класс необходим исключительно для миграций
